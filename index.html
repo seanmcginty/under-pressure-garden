@@ -75,9 +75,8 @@ a.cta.call{background:#0E6B3F}
 <h2>3. Rough garden size</h2><p class="hint">A best guess is fine</p><div class="grid one" id="size"></div>
 <h2>4. How often?</h2><div class="grid" id="often"></div>
 <h2>5. What state is it in now?</h2><div class="grid one" id="state"></div>
-<h2>6. Access</h2><p class="hint">Tick any that apply</p><div class="grid" id="access"></div>
-<h2>7. When would you like it done?</h2><div class="grid" id="when"></div>
-<h2>8. Anything else?</h2>
+<h2>6. When would you like it done?</h2><div class="grid" id="when"></div>
+<h2>7. Anything else?</h2>
 <textarea id="note" rows="4" maxlength="1500" placeholder="e.g. Hedge is about 2m tall, there's a dog, the back gate sticks…"></textarea>
 
 <div class="photos">📸 <b>Please send a few photos of your garden on WhatsApp.</b> They help me give you an accurate price.</div>
@@ -102,9 +101,8 @@ part:["Front","Back","Both"],
 size:["Small – up to about 50m² (a small lawn and border)","Medium – about 50–150m²","Large – 150m² or more","Not sure"],
 often:["One-off","Weekly","Fortnightly","Monthly","Not sure"],
 state:["Well kept","A bit overgrown","Very overgrown"],
-access:["Side gate / rear access","Through the house","Steps","Parking nearby"],
 when:["ASAP","Within 2 weeks","This month","Flexible"]};
-const multi={access:1};
+const multi={};
 const areas=[
 ["lawn","🌱","Lawn",["Mowing","Edging","Feed & weed treatment","Moss treatment","Scarifying","Aerating","New turf","Other"]],
 ["patio","🧱","Patio & paths",["Pressure washing","Weeding between slabs","Weed/patio treatment","Sealing","Other"]],
@@ -136,7 +134,7 @@ const name=document.getElementById('fname').value.trim().split(/\s+/)[0]||'';
 const note=document.getElementById('note').value.trim();
 const pc=(document.getElementById('pc').value.trim().toUpperCase().split(/\s+/)[0]||'').slice(0,4);
 return `🌱 NEW GARDEN INFO${name?` from ${name}`:''}${pc?` (${pc})`:''}\n`+
-(areaLines().length?areaLines().join('\n'):'Jobs: –')+`\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nAccess: ${v('access')}\nWhen: ${v('when')}`+
+(areaLines().length?areaLines().join('\n'):'Jobs: –')+`\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nWhen: ${v('when')}`+
 (note?`\nNotes: ${note}`:'')+`\n\n(Photos to follow on WhatsApp)`;
 }
 function show(id){['form','done','fail'].forEach(x=>document.getElementById(x).style.display=(x===id?'block':'none'));window.scrollTo(0,0)}
