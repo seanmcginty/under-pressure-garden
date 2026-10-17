@@ -111,14 +111,14 @@ function buildMsg(){
 const name=document.getElementById('fname').value.trim().split(/\s+/)[0]||'';
 const note=document.getElementById('note').value.trim();
 const pc=(document.getElementById('pc').value.trim().toUpperCase().split(/\s+/)[0]||'').slice(0,4);
-return `🌱 NEW GARDEN ENQUIRY${name?` from ${name}`:''}${pc?` (${pc})`:''}\n`+
+return `🌱 NEW GARDEN INFO${name?` from ${name}`:''}${pc?` (${pc})`:''}\n`+
 `Wants: ${v('jobs')}\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nAccess: ${v('access')}\nGreen waste: ${v('waste')}\nWhen: ${v('when')}`+
 (note?`\nNotes: ${note}`:'')+`\n\n(Photos to follow on WhatsApp)`;
 }
 function show(id){['form','done','fail'].forEach(x=>document.getElementById(x).style.display=(x===id?'block':'none'));window.scrollTo(0,0)}
 async function post(msg){
 const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),12000);
-try{const r=await fetch('https://ntfy.sh/'+TOPIC+'?title='+encodeURIComponent('New garden enquiry')+'&tags=seedling&priority=4',{method:'POST',body:msg,keepalive:true,signal:ctl.signal});return r.ok}
+try{const r=await fetch('https://ntfy.sh/'+TOPIC+'?title='+encodeURIComponent('New garden info')+'&tags=seedling&priority=4',{method:'POST',body:msg,keepalive:true,signal:ctl.signal});return r.ok}
 catch(e){return false}finally{clearTimeout(t)}
 }
 async function send(){
