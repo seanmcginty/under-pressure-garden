@@ -40,6 +40,8 @@ a{color:#0E6B3F}
 .area h3 .n.on{display:inline-block}
 .area .grid{margin-top:8px}
 .area label.opt{background:#f7fbf8;min-height:44px}
+.area input.otherbox{display:none;margin-top:8px;padding:10px 12px;font-size:16px}
+.area input.otherbox.on{display:block}
 label.opt{display:flex;align-items:center;min-height:48px;background:#fff;border:2px solid #cfe6d8;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.25;cursor:pointer;user-select:none}
 input[type=radio],input[type=checkbox]{position:absolute;opacity:0;pointer-events:none}
 input:checked+label.opt{border-color:#16995A;background:#dff2e7;font-weight:600}
@@ -113,14 +115,17 @@ const areas=[
 ["hedges","🌳","Hedges",["Trimming","Cutting down/reducing","Removal","Other"]],
 ["other","🧹","Other",["Garden tidy/clearance","Artificial grass clean","Green waste removal","Something else"]]];
 const areasEl=document.getElementById('areas');
+const OTHER=['Other','Something else'];
 areas.forEach(([k,e,t,jobs])=>{const card=document.createElement('section');card.className='area';
 const h=document.createElement('h3');h.innerHTML=`<span>${e} ${t}</span><span class="n" id="n_${k}"></span>`;
 const g=document.createElement('div');g.className='grid';
+const ob=document.createElement('input');ob.type='text';ob.className='otherbox';ob.id='o_'+k;ob.maxLength=80;ob.placeholder='Tell me what…';ob.setAttribute('aria-label',t+': tell me what');
 jobs.forEach((o,i)=>{const id=`a_${k}${i}`;const inp=document.createElement('input');inp.type='checkbox';inp.name='a_'+k;inp.id=id;inp.value=o;
-inp.addEventListener('change',()=>{const n=document.querySelectorAll(`input[name="a_${k}"]:checked`).length;const b=document.getElementById('n_'+k);b.textContent=n+' ticked';b.classList.toggle('on',n>0)});
+inp.addEventListener('change',()=>{const n=document.querySelectorAll(`input[name="a_${k}"]:checked`).length;const b=document.getElementById('n_'+k);b.textContent=n+' ticked';b.classList.toggle('on',n>0);
+if(OTHER.includes(o)){ob.classList.toggle('on',inp.checked);if(inp.checked)ob.focus()}});
 const lab=document.createElement('label');lab.className='opt';lab.htmlFor=id;lab.textContent=o;g.append(inp,lab)});
-card.append(h,g);areasEl.append(card)});
-const areaLines=()=>areas.map(([k,,t])=>{const j=[...document.querySelectorAll(`input[name="a_${k}"]:checked`)].map(x=>x.value);return j.length?`${t}: ${j.join(", ")}`:''}).filter(Boolean);
+card.append(h,g,ob);areasEl.append(card)});
+const areaLines=()=>areas.map(([k,,t])=>{const ot=document.getElementById('o_'+k).value.trim().replace(/\s+/g,' ');const j=[...document.querySelectorAll(`input[name="a_${k}"]:checked`)].map(x=>OTHER.includes(x.value)&&ot?`${x.value} (${ot})`:x.value);return j.length?`${t}: ${j.join(", ")}`:''}).filter(Boolean);
 for(const k in opts){const el=document.getElementById(k);opts[k].forEach((o,i)=>{const id=k+i;
 const inp=document.createElement('input');inp.type=multi[k]?'checkbox':'radio';inp.name=k;inp.id=id;inp.value=o;
 const lab=document.createElement('label');lab.className='opt';lab.htmlFor=id;lab.textContent=o;
