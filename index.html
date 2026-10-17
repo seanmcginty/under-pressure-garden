@@ -3,35 +3,46 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Under Pressure">
-<meta name="theme-color" content="#1f5130">
+<meta name="theme-color" content="#16995A">
 <meta name="description" content="Tell Under Pressure about your garden and what you'd like done. Blackpool &amp; Fylde.">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Under Pressure">
 <meta property="og:title" content="Under Pressure – Tell us about your garden">
-<meta property="og:description" content="A few quick taps so I can give you a price. Blackpool &amp; Fylde gardening.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🌱%3C/text%3E%3C/svg%3E">
+<meta property="og:description" content="A few quick taps about your garden and what you'd like done, so I can give you a price. Garden maintenance and outdoor cleaning in Blackpool &amp; Fylde.">
+<meta property="og:url" content="https://seanmcginty.github.io/under-pressure-garden/">
+<meta property="og:image" content="https://seanmcginty.github.io/under-pressure-garden/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Under Pressure logo – garden maintenance and outdoor cleaning">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://seanmcginty.github.io/under-pressure-garden/og.png">
 <title>Under Pressure – Tell us about your garden</title>
 <style>
 *{box-sizing:border-box}
-body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#f1f6ef;color:#1d3524;-webkit-tap-highlight-color:transparent}
-header{background:#1f5130;color:#f1f6ef;text-align:center;padding:22px 14px 20px}
-.logo{display:block;width:84px;height:84px;margin:0 auto 10px}
-header h1{margin:0;font-size:26px;letter-spacing:.01em}
-header p{margin:6px 0 0;font-size:15px;opacity:.9}
-.area{font-size:11px!important;letter-spacing:.08em;text-transform:uppercase;opacity:.7!important;margin-top:8px!important}
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#eef7f1;color:#17332A;-webkit-tap-highlight-color:transparent}
+header{background:#fff;text-align:center;padding:14px 14px 16px;border-bottom:5px solid #16995A}
+.logo{display:block;width:210px;max-width:62vw;height:auto;margin:0 auto}
+header h1{margin:8px 0 0;font-size:22px;color:#0E6B3F}
+header p{margin:4px 0 0;font-size:13px;color:#0E6B3F}
 main{max-width:520px;margin:auto;padding:16px 16px 30px}
-.intro{background:#fff;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.4;border:1px solid #d6e4d2}
+.intro{background:#fff;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.4;border:1px solid #cfe6d8}
 h2{font-size:17px;margin:22px 0 4px}
-.hint{font-size:13px;opacity:.7;margin:0 0 8px}
+.hint{font-size:13px;color:#4b6458;margin:0 0 8px}
+a{color:#0E6B3F}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .grid.one{grid-template-columns:1fr}
-label.opt{display:flex;align-items:center;min-height:48px;background:#fff;border:2px solid #d6e4d2;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.25;cursor:pointer;user-select:none}
+label.opt{display:flex;align-items:center;min-height:48px;background:#fff;border:2px solid #cfe6d8;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.25;cursor:pointer;user-select:none}
 input[type=radio],input[type=checkbox]{position:absolute;opacity:0;pointer-events:none}
-input:checked+label.opt{border-color:#2e7d46;background:#dcefdc;font-weight:600}
-input:checked+label.opt::before{content:"✓ ";color:#2e7d46;margin-right:4px}
-input:focus-visible+label.opt{outline:3px solid #8bc79a}
-input[type=text],textarea{width:100%;border-radius:12px;border:2px solid #d6e4d2;padding:12px;font-size:16px;font-family:inherit;background:#fff;color:inherit}
-input[type=text]:focus,textarea:focus{outline:none;border-color:#2e7d46}
+input:checked+label.opt{border-color:#16995A;background:#dff2e7;font-weight:600}
+input:checked+label.opt::before{content:"✓ ";color:#0E6B3F;margin-right:4px}
+input:focus-visible+label.opt{outline:3px solid #7fcca4}
+input[type=text],textarea{width:100%;border-radius:12px;border:2px solid #cfe6d8;padding:12px;font-size:16px;font-family:inherit;background:#fff;color:inherit}
+input[type=text]:focus,textarea:focus{outline:none;border-color:#16995A}
 .photos{margin-top:22px;background:#fff8e1;border:1px solid #f0dc9a;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.4}
-button{width:100%;margin-top:20px;padding:16px;font-size:19px;border:0;border-radius:14px;background:#2e7d46;color:#fff;font-weight:700;cursor:pointer}
+button{width:100%;margin-top:20px;padding:16px;font-size:19px;border:0;border-radius:14px;background:#16995A;color:#fff;font-weight:700;cursor:pointer}
 button:disabled{opacity:.6}
 .err{color:#b3261e;font-size:14px;margin-top:10px;text-align:center;display:none}
 .small{font-size:13px;opacity:.7;text-align:center;margin-top:14px}
@@ -39,18 +50,9 @@ button:disabled{opacity:.6}
 #done h2,#fail h2{font-size:24px}
 #done p,#fail p{font-size:16px;line-height:1.45}
 a.cta{display:block;margin-top:16px;padding:15px;border-radius:14px;background:#25d366;color:#fff;font-weight:700;font-size:18px;text-decoration:none}
-a.cta.call{background:#1f5130}
+a.cta.call{background:#0E6B3F}
 </style></head><body>
-<header>
-<svg class="logo" role="img" aria-label="Under Pressure leaf logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-<circle cx="50" cy="50" r="48" fill="#f1f6ef"/>
-<path d="M50 84 C22 72 18 40 30 20 C48 26 78 34 74 60 C71 76 60 82 50 84Z" fill="#3e9b57"/>
-<path d="M50 84 C22 72 18 40 30 20 C34 44 42 62 50 84Z" fill="#2e7d46"/>
-<path d="M50 84 C44 62 38 44 30 20" stroke="#f1f6ef" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-<path d="M44 62 L58 54 M40 48 L52 40 M37 35 L46 30" stroke="#f1f6ef" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-<path d="M50 84 Q52 90 56 93" stroke="#2e7d46" stroke-width="3" fill="none" stroke-linecap="round"/>
-</svg>
-<h1>Under Pressure</h1><p>Tell us about your garden</p><p class="area">Gardening · Blackpool &amp; Fylde</p></header>
+<header><img class="logo" src="logo.png" width="420" height="495" alt="Under Pressure – Garden maintenance and outdoor cleaning"><h1>Tell us about your garden</h1><p>Blackpool &amp; Fylde</p></header>
 <main id="form">
 <div class="intro">Thanks for getting in touch! Just a few quick taps so I can understand what you need and give you a price. Everything is optional, so skip anything you're unsure about.</div>
 
