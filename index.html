@@ -59,6 +59,9 @@ a.cta.call{background:#0E6B3F}
 <h2>First name please so I know it's you.</h2>
 <input type="text" id="fname" maxlength="30" autocomplete="given-name" placeholder="e.g. Margaret">
 
+<h2>First part of your postcode</h2><p class="hint">Just the first bit, e.g. FY5</p>
+<input type="text" id="pc" maxlength="4" autocapitalize="characters" autocomplete="off" placeholder="e.g. FY5" style="text-transform:uppercase">
+
 <h2>1. What would you like done?</h2><p class="hint">Tick as many as you like</p><div class="grid" id="jobs"></div>
 <h2>2. Which part of the garden?</h2><div class="grid" id="part"></div>
 <h2>3. Rough garden size</h2><p class="hint">A best guess is fine</p><div class="grid one" id="size"></div>
@@ -107,7 +110,8 @@ let lastMsg='';
 function buildMsg(){
 const name=document.getElementById('fname').value.trim().split(/\s+/)[0]||'';
 const note=document.getElementById('note').value.trim();
-return `🌱 NEW GARDEN ENQUIRY${name?` from ${name}`:''}\n`+
+const pc=(document.getElementById('pc').value.trim().toUpperCase().split(/\s+/)[0]||'').slice(0,4);
+return `🌱 NEW GARDEN ENQUIRY${name?` from ${name}`:''}${pc?` (${pc})`:''}\n`+
 `Wants: ${v('jobs')}\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nAccess: ${v('access')}\nGreen waste: ${v('waste')}\nWhen: ${v('when')}`+
 (note?`\nNotes: ${note}`:'')+`\n\n(Photos to follow on WhatsApp)`;
 }
