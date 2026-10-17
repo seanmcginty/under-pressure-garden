@@ -34,6 +34,12 @@ h2{font-size:17px;margin:22px 0 4px}
 a{color:#0E6B3F}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .grid.one{grid-template-columns:1fr}
+.area{background:#fff;border:1px solid #cfe6d8;border-radius:14px;padding:10px 12px 12px;margin-top:10px}
+.area h3{margin:0;font-size:15px;color:#0E6B3F;display:flex;justify-content:space-between;align-items:center}
+.area h3 .n{font-size:12px;font-weight:600;background:#16995A;color:#fff;border-radius:10px;padding:2px 8px;display:none}
+.area h3 .n.on{display:inline-block}
+.area .grid{margin-top:8px}
+.area label.opt{background:#f7fbf8;min-height:44px}
 label.opt{display:flex;align-items:center;min-height:48px;background:#fff;border:2px solid #cfe6d8;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.25;cursor:pointer;user-select:none}
 input[type=radio],input[type=checkbox]{position:absolute;opacity:0;pointer-events:none}
 input:checked+label.opt{border-color:#16995A;background:#dff2e7;font-weight:600}
@@ -62,7 +68,7 @@ a.cta.call{background:#0E6B3F}
 <h2>First part of your postcode</h2><p class="hint">Just the first bit, e.g. FY5</p>
 <input type="text" id="pc" maxlength="4" autocapitalize="characters" autocomplete="off" placeholder="e.g. FY5" style="text-transform:uppercase">
 
-<h2>1. What would you like done?</h2><p class="hint">Tick as many as you like</p><div class="grid" id="jobs"></div>
+<h2>1. What would you like done?</h2><p class="hint">Tick any jobs in each part of the garden. Skip the areas you don't need.</p><div id="areas"></div>
 <h2>2. Which part of the garden?</h2><div class="grid" id="part"></div>
 <h2>3. Rough garden size</h2><p class="hint">A best guess is fine</p><div class="grid one" id="size"></div>
 <h2>4. How often?</h2><div class="grid" id="often"></div>
@@ -91,7 +97,6 @@ a.cta.call{background:#0E6B3F}
 <script>
 const TOPIC='up-garden-yq2jcasyjzluco08';
 const opts={
-jobs:["Lawn mowing","Lawn treatment/feed","Hedge trimming","Weeding","Borders/planting","Pruning/shrubs","Patio/path cleaning","Weed/patio treatment","Garden tidy/clearance","Artificial grass clean","Other"],
 part:["Front","Back","Both"],
 size:["Small – up to about 50m² (a small lawn and border)","Medium – about 50–150m²","Large – 150m² or more","Not sure"],
 often:["One-off","Weekly","Fortnightly","Monthly","Not sure"],
@@ -99,7 +104,23 @@ state:["Well kept","A bit overgrown","Very overgrown"],
 access:["Side gate / rear access","Through the house","Steps","Parking nearby"],
 waste:["Take it away","Leave in my brown bin","Not sure"],
 when:["ASAP","Within 2 weeks","This month","Flexible"]};
-const multi={jobs:1,access:1};
+const multi={access:1};
+const areas=[
+["lawn","🌱","Lawn",["Mowing","Edging","Feed & weed treatment","Moss treatment","Scarifying","Aerating","New turf","Other"]],
+["patio","🧱","Patio & paths",["Pressure washing","Weeding between slabs","Weed/patio treatment","Sealing","Other"]],
+["borders","🌷","Borders",["Weeding","Planting","Pruning shrubs","Bark/mulch","Cutting back","Other"]],
+["pots","🪴","Pots & planters",["Planting up","Seasonal refresh","Weeding/tidy","Other"]],
+["hedges","🌳","Hedges",["Trimming","Cutting down/reducing","Removal","Other"]],
+["other","🧹","Other",["Garden tidy/clearance","Artificial grass clean","Green waste removal","Something else"]]];
+const areasEl=document.getElementById('areas');
+areas.forEach(([k,e,t,jobs])=>{const card=document.createElement('section');card.className='area';
+const h=document.createElement('h3');h.innerHTML=`<span>${e} ${t}</span><span class="n" id="n_${k}"></span>`;
+const g=document.createElement('div');g.className='grid';
+jobs.forEach((o,i)=>{const id=`a_${k}${i}`;const inp=document.createElement('input');inp.type='checkbox';inp.name='a_'+k;inp.id=id;inp.value=o;
+inp.addEventListener('change',()=>{const n=document.querySelectorAll(`input[name="a_${k}"]:checked`).length;const b=document.getElementById('n_'+k);b.textContent=n+' ticked';b.classList.toggle('on',n>0)});
+const lab=document.createElement('label');lab.className='opt';lab.htmlFor=id;lab.textContent=o;g.append(inp,lab)});
+card.append(h,g);areasEl.append(card)});
+const areaLines=()=>areas.map(([k,,t])=>{const j=[...document.querySelectorAll(`input[name="a_${k}"]:checked`)].map(x=>x.value);return j.length?`${t}: ${j.join(", ")}`:''}).filter(Boolean);
 for(const k in opts){const el=document.getElementById(k);opts[k].forEach((o,i)=>{const id=k+i;
 const inp=document.createElement('input');inp.type=multi[k]?'checkbox':'radio';inp.name=k;inp.id=id;inp.value=o;
 const lab=document.createElement('label');lab.className='opt';lab.htmlFor=id;lab.textContent=o;
@@ -112,7 +133,7 @@ const name=document.getElementById('fname').value.trim().split(/\s+/)[0]||'';
 const note=document.getElementById('note').value.trim();
 const pc=(document.getElementById('pc').value.trim().toUpperCase().split(/\s+/)[0]||'').slice(0,4);
 return `🌱 NEW GARDEN INFO${name?` from ${name}`:''}${pc?` (${pc})`:''}\n`+
-`Wants: ${v('jobs')}\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nAccess: ${v('access')}\nGreen waste: ${v('waste')}\nWhen: ${v('when')}`+
+(areaLines().length?areaLines().join('\n'):'Jobs: –')+`\nPart: ${v('part')}\nSize: ${v('size')}\nHow often: ${v('often')}\nState: ${v('state')}\nAccess: ${v('access')}\nGreen waste: ${v('waste')}\nWhen: ${v('when')}`+
 (note?`\nNotes: ${note}`:'')+`\n\n(Photos to follow on WhatsApp)`;
 }
 function show(id){['form','done','fail'].forEach(x=>document.getElementById(x).style.display=(x===id?'block':'none'));window.scrollTo(0,0)}
@@ -123,7 +144,7 @@ catch(e){return false}finally{clearTimeout(t)}
 }
 async function send(){
 const err=document.getElementById('err');err.style.display='none';
-if(v('jobs')==='–'&&!document.getElementById('note').value.trim()){err.textContent="Please tick at least one job, or tell me what you'd like in “Anything else?”";err.style.display='block';return}
+if(!areaLines().length&&!document.getElementById('note').value.trim()){err.textContent="Please tick at least one job in any area, or tell me what you'd like in “Anything else?”";err.style.display='block';return}
 const b=document.getElementById('send');b.disabled=true;b.textContent='Sending…';
 lastMsg=buildMsg();
 const ok=await post(lastMsg);
